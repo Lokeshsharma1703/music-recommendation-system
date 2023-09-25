@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 
 const childPython = spawn("python", ["algo.py"]);
 
-let res = "hello";
+let res = "";
 
 childPython.stdout.on("data", (data) => {
   console.log(`stdout : ${data}`);
