@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import footerimg from "../assets/footer-img.webp";
+import footerimg from "../assets/contact-image.jpg";
 
 const Footer = () => {
   return (
@@ -49,7 +49,7 @@ const Footer = () => {
               </div>
             </div>
             <div class="col-lg-4 p-0 ">
-              <img src={footerimg} alt="" />
+              <img src={footerimg} alt="" style={{height:'68vh', borderRadius:'8px'}}/>
             </div>
           </div>
         </div>

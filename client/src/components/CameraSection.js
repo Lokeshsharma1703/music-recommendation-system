@@ -17,24 +17,23 @@ const CameraSection = () => {
   };
 
   return (
-    <div className="camera-section" id="camera">
+    <div className="camera-section" >
       <div className="container">
         <div className="row pb-5">
           <div className="col-lg-8">
             <div className="section-title">
               <h3
+              id="camera"
                 className="title"
                 style={{
                   fontFamily: "Satisfy",
-                  fontSize: "2.5rem",
+                  fontSize: "3rem",
                   color: "#ea34ff",
                 }}
               >
-                Our Videos
+                Our Music
               </h3>
-              <h2 style={{ fontSize: "3rem", textTransform: "uppercase" }}>
-                newest albums & singles
-              </h2>
+              
             </div>
           </div>
           <div
