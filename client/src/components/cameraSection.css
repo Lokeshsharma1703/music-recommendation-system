@@ -1,0 +1,22 @@
+.camera-section {
+  position: relative;
+  background: #503aca;
+  background-image: url(../assets/video-overlay.png.webp);
+  padding: 105px 0 215px;
+  background-color: #0c0617;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  z-index: 2;
+  color: white;
+}
+
+.sec {
+  width: 100%;
+}
+
+.camera {
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 0 15px rgb(34, 34, 34);
+}

@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Satisfy&display=swap");
+
+.App {
+  background-color: #0c0617;
+}
+
+.login-butt {
+  background: linear-gradient(45deg, #503aca 0%, #ea34ff 100%);
+}
+
+.head-item {
+  transition: 2s;
+}
+
+.head-item:hover {
+  border-bottom: 2px solid white;
+}
+
+.nav {
+  height: 11vh;
+  background: linear-gradient(to bottom right, #212124);
+}
+
+.head-section {
+  height: 1275px;
+  background-image: url("./assets/hero-bg.png.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  z-index: 10;
+  position: relative;
+}
+
+.slider {
+  width: 50%;
+}
+
+.slideshow-container {
+  position: relative;
+  background: transparent;
+  top: 10vh;
+}
+
+.mySlides {
+  /* display: none; */
+  padding: 80px;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
