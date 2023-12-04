@@ -2,28 +2,83 @@ import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./cameraSection.css";
 import cameraImage from "../assets/camera.jpg";
+import SongCard from "../components/SongCard";
+import axios from "axios";
 
 const CameraSection = () => {
   const [webCam, setWebCam] = useState(false);
+  const [isSongs, setIsSongs] = useState(false);
+  const [image, setImage] = useState(null);
+  const [songs, setSongs] = useState([]);
+  const [emotion, setEmotion] = useState("");
   const webCamRef = useRef(null);
 
-  const handleCapture = () => {
+  const handleCapture = async () => {
     const imageSource = webCamRef.current.getScreenshot();
 
-    fetch("/api/images", {
+    setImage(imageSource);
+
+    // fetch("/api/images", {
+    //   method: "POST",
+    //   body: imageSource,
+    // });
+
+    const formData = new FormData();
+    formData.append("image", image);
+
+    let headers = new Headers();
+
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+
+    headers.append("Access-Control-Allow-Origin", "http://localhost:3333");
+    headers.append("Access-Control-Allow-Credentials", "true");
+
+    headers.append("GET", "POST", "OPTIONS");
+
+    // const response = await fetch("/upload", {
+    //   method: "POST",
+    //   body: formData,
+    //   headers: headers,
+    // });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    await fetch("/upload", {
       method: "POST",
-      body: imageSource,
-    });
+      body: formData,
+      headers: headers,
+    })
+      .then((data) => data.json())
+      .then((songs) => {
+        setSongs(songs);
+      })
+      .catch((err) => console.log(err));
+
+    // const data = response.json();
+
+    // const response = await axios.post("/upload", imageSource, config);
+
+    // console.log(imageSource);
+    console.log(songs);
+    // setEmotion(songs);
+
+    setWebCam(false);
+    setIsSongs(true);
   };
 
   return (
-    <div className="camera-section" >
+    <div className="camera-section">
       <div className="container">
         <div className="row pb-5">
           <div className="col-lg-8">
             <div className="section-title">
               <h3
-              id="camera"
+                id="camera"
                 className="title"
                 style={{
                   fontFamily: "Satisfy",
@@ -33,7 +88,6 @@ const CameraSection = () => {
               >
                 Our Music
               </h3>
-              
             </div>
           </div>
           <div
@@ -63,7 +117,7 @@ const CameraSection = () => {
             {webCam ? (
               <Webcam
                 ref={webCamRef}
-                onClickCapture={handleCapture}
+                // onClickCapture={handleCapture}
                 className="camera"
               ></Webcam>
             ) : (
@@ -97,20 +151,46 @@ const CameraSection = () => {
                 </b>{" "}
                 be your guide to a world of personalized melodies.
               </p>
-              <button
-                className="login-butt px-4 py-2 mt-3 fs-5 rounded"
-                style={{
-                  color: "white",
-                  textTransform: "uppercase",
-                  border: "none",
-                }}
-                onClick={() => setWebCam(!webCam)}
-              >
-                try it . . .
-              </button>
+              {webCam ? (
+                <button
+                  className="login-butt px-4 py-2 mt-3 fs-5 rounded"
+                  style={{
+                    color: "white",
+                    textTransform: "uppercase",
+                    border: "none",
+                  }}
+                  onClick={handleCapture}
+                >
+                  Capture
+                </button>
+              ) : (
+                <button
+                  className="login-butt px-4 py-2 mt-3 fs-5 rounded"
+                  style={{
+                    color: "white",
+                    textTransform: "uppercase",
+                    border: "none",
+                  }}
+                  onClick={() => setWebCam(!webCam)}
+                >
+                  try it . . .
+                </button>
+              )}
             </div>
           </div>
         </div>
+        {isSongs && (
+          <div className="row mt-5">
+            {/* <h3 className="py-3">
+              Emotion : <em>{emotion}</em>
+            </h3> */}
+            <ul>
+              {songs.map((song) => (
+                <SongCard song={song} />
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
