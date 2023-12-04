@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const Song = require("./models/song");
 const fileUpload = require("express-fileupload");
+const bodyParser = require("body-parser");
+const multer = require("multer");
 require("dotenv").config();
 
 mongoose
@@ -14,36 +16,53 @@ mongoose
     console.log(e);
   });
 
-app.get("/", async (req, res) => {
-  const { q } = req.query;
-
-  if (q) {
-    const songs = await Song.find({ emotion: q });
-
-    res.send(songs);
-  } else {
-    const songs = await Song.find();
-
-    res.send(songs);
-  }
+const upload = multer({
+  dest: "./uploads/",
 });
 
-app.post("/api/images", (req, res) => {
-  const imgSrc = req.body;
-  console.log(imgSrc);
-  res.send("Image saved");
-});
+app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
-app.post("/uploads", (req, res) => {
-  const file = req.files.image;
+// app.get("/", async (req, res) => {
+//   const { q } = req.query;
 
-  file.mv("./uploads/" + file.name, (err) => {
-    if (err) {
-      return res.status(500).send("Error saving file");
-    }
+//   if (q) {
+//     const songs = await Song.find({ emotion: q });
 
-    return res.status(200).send("File uploaded successfully");
-  });
+//     res.send(songs);
+//   } else {
+//     const songs = await Song.find();
+
+//     res.send(songs);
+//     // console.log("Data");
+//   }
+// });
+
+// app.post("/upload", upload.single("image"), async (req, res) => {
+//   // const imgSrc = req.body;
+//   // console.log(imgSrc);
+//   // console.log("Image saved");
+
+//   const image = req.body;
+//   // await image.save(`./uploads/${image.originalname}`);
+
+//   console.log(image);
+
+//   res.send("successfull");
+// });
+
+app.post("/upload", async (req, res) => {
+  // const imgSrc = req.body;
+  // console.log(imgSrc);
+  // console.log("Image saved");
+
+  const image = req.body;
+  // await image.save(`./uploads/${image.originalname}`);
+
+  console.log(image);
+  const songs = await Song.find();
+
+  res.send(songs);
 });
 
 app.listen(process.env.PORT, () => {
