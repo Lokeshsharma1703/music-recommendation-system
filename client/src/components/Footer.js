@@ -49,7 +49,11 @@ const Footer = () => {
               </div>
             </div>
             <div class="col-lg-4 p-0 ">
-              <img src={footerimg} alt="" style={{height:'68vh', borderRadius:'8px'}}/>
+              <img
+                src={footerimg}
+                alt=""
+                style={{ height: "68vh", borderRadius: "8px" }}
+              />
             </div>
           </div>
         </div>
@@ -70,16 +74,19 @@ const Footer = () => {
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </div>
               <p>
-                125-711-811 | 125-668-886 <br /> Support.music@gmail.com
+                aman.kumar2_cs20@gla.ac.in <br /> shivani.singh1_cs20@gla.ac.in
               </p>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="footer__social">
-              <a href="#">
+              <a href="https://github.com/Lokeshsharma1703" target="_blank">
                 <i class="fa fa-github"></i>
               </a>
-              <a href="#">
+              <a
+                href="https://www.linkedin.com/in/lokeshsharma1703/"
+                target="_blank"
+              >
                 <i class="fa fa-linkedin"></i>
               </a>
               <a href="#">
