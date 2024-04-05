@@ -18,53 +18,33 @@ const CameraSection = () => {
 
     setImage(imageSource);
 
-    // fetch("/api/images", {
-    //   method: "POST",
-    //   body: imageSource,
-    // });
-
     const formData = new FormData();
     formData.append("image", image);
-
-    let headers = new Headers();
-
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
-
-    headers.append("Access-Control-Allow-Origin", "http://localhost:3333");
-    headers.append("Access-Control-Allow-Credentials", "true");
-
-    headers.append("GET", "POST", "OPTIONS");
-
-    // const response = await fetch("/upload", {
-    //   method: "POST",
-    //   body: formData,
-    //   headers: headers,
-    // });
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
 
     await fetch("/upload", {
       method: "POST",
       body: formData,
-      headers: headers,
     })
       .then((data) => data.json())
-      .then((songs) => {
-        setSongs(songs);
-      })
+      .then((songs) => setSongs(songs))
       .catch((err) => console.log(err));
+
+    // await fetch("/upload", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((data) => data.json())
+    //   .then((songs) => {
+    //     setSongs(songs);
+    //   })
+    //   .catch((err) => console.log(err));
 
     // const data = response.json();
 
     // const response = await axios.post("/upload", imageSource, config);
 
     // console.log(imageSource);
-    console.log(songs);
+    // console.log(songs);
     // setEmotion(songs);
 
     setWebCam(false);
@@ -121,6 +101,7 @@ const CameraSection = () => {
                 className="camera"
               ></Webcam>
             ) : (
+              // <img src={image} alt="" />
               <img src={cameraImage} alt="camera" className="camera" />
             )}
           </div>
@@ -186,7 +167,7 @@ const CameraSection = () => {
             </h3> */}
             <ul>
               {songs.map((song) => (
-                <SongCard song={song} />
+                <SongCard song={song} key={song.name} />
               ))}
             </ul>
           </div>

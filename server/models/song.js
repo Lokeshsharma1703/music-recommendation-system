@@ -13,6 +13,10 @@ const songSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  singer: {
+    type: String,
+    required: true,
+  },
 });
 
 const Song = mongoose.model("Song", songSchema);
