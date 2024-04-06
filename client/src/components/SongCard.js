@@ -10,7 +10,7 @@ const SongCard = ({ song }) => {
             <i class="fa fa-music" aria-hidden="true"></i>
             <h4 style={{ margin: "0 0 0 10px" }}>{song.name}</h4>
           </span>
-          <p style={{ margin: 0 }}>Singer</p>
+          <p style={{ margin: 0 }}>{song.singer}</p>
         </div>
         <div
           className="d-flex justify-content-between"

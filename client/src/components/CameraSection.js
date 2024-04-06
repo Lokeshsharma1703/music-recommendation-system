@@ -18,11 +18,6 @@ const CameraSection = () => {
     //  console.log(imageSource);
     setImage(imageSource);
 
-    // fetch("/api/images", {
-    //   method: "POST",
-    //   body: imageSource,
-    // });
-
     const formData = new FormData();
     formData.append("image", image);
 
@@ -42,37 +37,26 @@ const CameraSection = () => {
     //   headers: headers,
     // });
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
     await fetch("/upload", {
       method: "POST",
-      headers: headers,
       body: formData,
+      headers: headers,
     })
       .then((data) => data.json())
-      .then((songs) => {
-        setSongs(songs);
-      })
+      .then((songs) => setSongs(songs))
       .catch((err) => console.log(err));
 
-    // axios.post('/upload',{
-    //   data: formData,
-    // }, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   }
-    // }).then((res) => console.log(res)).catch(er => alert('Something went wrong!!'))
-
-
-    //  const data = response.json();
+    // const data = response.json();
 
     //  const response = await axios.post("/upload", imageSource, config);
 
-    console.log(imageSource);
+    // console.log(imageSource);
     console.log(songs);
     // setEmotion(songs);
 
@@ -130,6 +114,7 @@ const CameraSection = () => {
                 className="camera"
               ></Webcam>
             ) : (
+              // <img src={image} alt="" />
               <img src={cameraImage} alt="camera" className="camera" />
             )}
           </div>
@@ -195,7 +180,7 @@ const CameraSection = () => {
             </h3> */}
             <ul>
               {songs.map((song) => (
-                <SongCard song={song} />
+                <SongCard song={song} key={song.name} />
               ))}
             </ul>
           </div>

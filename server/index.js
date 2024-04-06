@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+const fs = require("fs");
 const mongoose = require("mongoose");
 const Song = require("./models/song");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 require("dotenv").config();
+
+const { spawn } = require("child_process");
+const childPython = spawn("python", ["algo.py"]);
 
 mongoose
   .connect(process.env.DB_URL)
@@ -16,6 +21,7 @@ mongoose
     console.log("Error connecting to MongoDB:",e);
   });
 
+<<<<<<< HEAD
 //Define a schema for storing image data in MongoDB
 const imageSchema = {
   image: String,
@@ -25,51 +31,63 @@ const Image = mongoose.model('Image',imageSchema);
 const upload = multer({
   dest: "./uploads/",
 });
+=======
+// const upload = multer({
+//   dest: "./uploads/",
+// });
+>>>>>>> 2e7479efa84b27336e24d9b8f6c4399b729b546d
 
 
 app.use(express.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 
-// app.get("/", async (req, res) => {
-//   const { q } = req.query;
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads"); // Destination folder for storing images
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Renaming the file to include timestamp
+  },
+});
 
-//   if (q) {
-//     const songs = await Song.find({ emotion: q });
+// Initialize multer middleware
+const upload = multer({ storage });
 
-//     res.send(songs);
-//   } else {
-//     const songs = await Song.find();
+app.post("/upload", upload.single("image"), async (req, res) => {
+  const image = req.body.image;
 
-//     res.send(songs);
-//     // console.log("Data");
-//   }
-// });
+  const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
+  const dataBuffer = Buffer.from(base64Data, "base64");
 
-// app.post("/upload", upload.single("image"), async (req, res) => {
-//   // const imgSrc = req.body;
-//   // console.log(imgSrc);
-//   // console.log("Image saved");
+  // Define the directory where you want to save the image
+  // const uploadDirectory = path.join(__dirname, "", "images");
 
-//   const image = req.body;
-//   // await image.save(`./uploads/${image.originalname}`);
+  // Ensure the directory exists
+  fs.mkdirSync("./uploads", { recursive: true });
 
-//   console.log(image);
+  // Generate a unique filename
+  const filename = "image.jpg"; // You can modify this as needed
 
-//   res.send("successfull");
-// });
+  // Define the path to save the image
+  const filePath = path.join("./uploads", filename);
 
-app.post("/upload", async (req, res) => {
-  // const imgSrc = req.body;
-  // console.log(imgSrc);
-  // console.log("Image saved");
-
+<<<<<<< HEAD
   const image = req.body;
  // console.log(image);
   // await image.save(`./uploads/${image.originalname}`);
+=======
+  // Write the image data to the file
+  fs.writeFile(filePath, dataBuffer, (err) => {
+    if (err) {
+      console.error("Error saving image:", err);
+    }
+>>>>>>> 2e7479efa84b27336e24d9b8f6c4399b729b546d
 
-  console.log(image);
-  const songs = await Song.find();
+    // Image saved successfully
+    console.log("Image saved successfully.");
+  });
 
+  // console.log(image);
+  const songs = await Song.find({ emotion: result });
   res.send(songs);
 });
 
