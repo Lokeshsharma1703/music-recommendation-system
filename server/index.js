@@ -13,12 +13,19 @@ mongoose
     console.log("DB connected");
   })
   .catch((e) => {
-    console.log(e);
+    console.log("Error connecting to MongoDB:",e);
   });
+
+//Define a schema for storing image data in MongoDB
+const imageSchema = {
+  image: String,
+}
+const Image = mongoose.model('Image',imageSchema);
 
 const upload = multer({
   dest: "./uploads/",
 });
+
 
 app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -57,6 +64,7 @@ app.post("/upload", async (req, res) => {
   // console.log("Image saved");
 
   const image = req.body;
+ // console.log(image);
   // await image.save(`./uploads/${image.originalname}`);
 
   console.log(image);
@@ -68,3 +76,10 @@ app.post("/upload", async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`server is running at port ${process.env.PORT}`);
 });
+
+
+// const sendEmail = require('./mailer');
+// // Example usage
+// sendEmail('recipient@example.com', 'Test Email', 'This is a test email from Nodemailer.');
+
+

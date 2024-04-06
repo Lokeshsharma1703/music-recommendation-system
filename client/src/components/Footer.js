@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./footer.css";
 import footerimg from "../assets/contact-image.jpg";
+// import sendEmail from './mailer'; 
 
 const Footer = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // try {
+    //   await sendEmail('recipient@example.com', 'Contact Form Submission', `Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+    //   alert('Email sent successfully!');
+    // } catch (error) {
+    //   console.error('Error sending email:', error);
+    //   alert('Failed to send email. Please try again later.');
+    // }
+  };
+
+
   return (
     <div className="footer" id="contact">
       <div class="container footer-section">
@@ -23,17 +41,18 @@ const Footer = () => {
                   </h3>
                   <h2>Got a Question?</h2>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div class="row">
                     <div class="col-lg-6">
-                      <input type="text" placeholder="Name" />
+                      <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
                     <div class="col-lg-6">
-                      <input type="text" placeholder="E-mail" />
+                      <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div class="col-lg-12">
-                      <textarea placeholder="Message" rows={4}></textarea>
-                      <button
+                      <textarea placeholder="Message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                      <button 
+                        type="submit"
                         className="login-butt px-4 py-1 fs-5 rounded"
                         style={{
                           color: "white",

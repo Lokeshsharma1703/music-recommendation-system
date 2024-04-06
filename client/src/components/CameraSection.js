@@ -15,7 +15,7 @@ const CameraSection = () => {
 
   const handleCapture = async () => {
     const imageSource = webCamRef.current.getScreenshot();
-
+    //  console.log(imageSource);
     setImage(imageSource);
 
     // fetch("/api/images", {
@@ -42,16 +42,16 @@ const CameraSection = () => {
     //   headers: headers,
     // });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     await fetch("/upload", {
       method: "POST",
-      body: formData,
       headers: headers,
+      body: formData,
     })
       .then((data) => data.json())
       .then((songs) => {
@@ -59,11 +59,20 @@ const CameraSection = () => {
       })
       .catch((err) => console.log(err));
 
-    // const data = response.json();
+    // axios.post('/upload',{
+    //   data: formData,
+    // }, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   }
+    // }).then((res) => console.log(res)).catch(er => alert('Something went wrong!!'))
 
-    // const response = await axios.post("/upload", imageSource, config);
 
-    // console.log(imageSource);
+    //  const data = response.json();
+
+    //  const response = await axios.post("/upload", imageSource, config);
+
+    console.log(imageSource);
     console.log(songs);
     // setEmotion(songs);
 
